@@ -5,6 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Choose Your Theme</title>
   <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden; /* Prevent scrolling */
+    }
+
     body {
       background-color: #121212; /* Spotify dark background */
       color: #ffffff;
@@ -13,11 +20,11 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
-      margin: 0;
-      padding: 20px;
+      position: fixed; /* Lock position */
+      width: 100%;
+      height: 100%;
       text-align: center;
-      -webkit-tap-highlight-color: transparent; /* Removes blue tap highlight on iOS/Android */
+      -webkit-tap-highlight-color: transparent; /* Remove tap blue on mobile */
     }
 
     h1 {
@@ -45,7 +52,7 @@
       border-radius: 12px;
       cursor: pointer;
       transition: transform 0.2s;
-      user-select: none;         /* Prevents text highlight */
+      user-select: none;
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
