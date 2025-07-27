@@ -88,12 +88,14 @@
       font-weight: bold;  
       border-radius: 12px;  
       cursor: pointer;  
-      transition: transform 0.2s;  
+      transition: transform 0.2s ease-in-out;
+      transform-origin: center;
       user-select: none;         
       -webkit-user-select: none;  
       -moz-user-select: none;  
       -ms-user-select: none;  
-      -webkit-tap-highlight-color: transparent;  
+      -webkit-tap-highlight-color: transparent;
+      will-change: transform;
     }  
   
     .square-button:hover,  
