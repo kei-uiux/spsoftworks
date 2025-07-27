@@ -32,7 +32,7 @@
     }
 
     .square-button {
-      background-color: #1db954; /* Official Spotify Green */
+      background-color: #1ed760; /* Spotify green */
       color: white;
       border: none;
       width: 140px;
@@ -41,12 +41,16 @@
       font-weight: bold;
       border-radius: 12px;
       cursor: pointer;
-      transition: background-color 0.3s, transform 0.2s;
+      transition: transform 0.2s;
+      user-select: none;         /* Makes text uncopyable */
+      -webkit-user-select: none; /* Safari support */
     }
 
-    .square-button:hover {
-      background-color: #1fdf64; /* Slightly brighter on hover */
-      transform: scale(1.05);
+    .square-button:hover,
+    .square-button:focus,
+    .square-button:active {
+      transform: scale(1.05); /* Only enlarge on hover/tap */
+      outline: none;
     }
 
     /* Mobile responsiveness */
