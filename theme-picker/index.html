@@ -17,11 +17,14 @@
       margin: 0;
       padding: 20px;
       text-align: center;
+      -webkit-tap-highlight-color: transparent; /* Removes blue tap highlight on iOS/Android */
     }
 
     h1 {
       font-size: 24px;
       margin-bottom: 30px;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
     .button-row {
@@ -42,14 +45,17 @@
       border-radius: 12px;
       cursor: pointer;
       transition: transform 0.2s;
-      user-select: none;         /* Makes text uncopyable */
-      -webkit-user-select: none; /* Safari support */
+      user-select: none;         /* Prevents text highlight */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .square-button:hover,
     .square-button:focus,
     .square-button:active {
-      transform: scale(1.05); /* Only enlarge on hover/tap */
+      transform: scale(1.05);
       outline: none;
     }
 
