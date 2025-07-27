@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Choose Your Theme</title>
   <style>
     body {
@@ -14,25 +15,28 @@
       justify-content: center;
       height: 100vh;
       margin: 0;
+      padding: 20px;
+      text-align: center;
     }
 
     h1 {
-      font-size: 28px;
-      margin-bottom: 40px;
-      text-align: center;
+      font-size: 24px;
+      margin-bottom: 30px;
     }
 
     .button-row {
       display: flex;
       gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
     .square-button {
       background-color: #1ed760; /* Official Spotify Green */
       color: white;
       border: none;
-      width: 150px;
-      height: 150px;
+      width: 140px;
+      height: 140px;
       font-size: 16px;
       font-weight: bold;
       border-radius: 12px;
@@ -44,14 +48,29 @@
       background-color: #1fdf64; /* Slightly brighter on hover */
       transform: scale(1.05);
     }
+
+    /* Mobile responsiveness */
+    @media (max-width: 480px) {
+      .square-button {
+        width: 100%;
+        max-width: 280px;
+        height: 100px;
+        font-size: 15px;
+      }
+
+      .button-row {
+        flex-direction: column;
+        gap: 16px;
+      }
+    }
   </style>
 </head>
 <body>
   <h1>Choose your preferred theme</h1>
 
   <div class="button-row">
-    <button class="square-button" onclick="alert('Original Theme Selected!')">Original theme</button>
-    <button class="square-button" onclick="alert('AMOLED Black Theme Selected!')">AMOLED Black theme</button>
+    <button class="square-button" onclick="window.location.href='https://example.com/original-theme'">Original theme</button>
+    <button class="square-button" onclick="window.location.href='https://example.com/amoled-theme'">AMOLED Black theme</button>
   </div>
 </body>
 </html>
