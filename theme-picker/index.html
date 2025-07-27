@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">  
   <title>Choose Your Theme</title>  
   <style>  
+    html, body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden; /* Disable scrolling */
+      position: fixed;   /* Fix position */
+      width: 100%;
+    }
+
     body {  
       background-color: #121212; /* Spotify dark background */  
       color: #ffffff;  
@@ -14,7 +22,6 @@
       align-items: center;  
       justify-content: center;  
       height: 100vh;  
-      margin: 0;  
       padding: 20px;  
       text-align: center;  
       -webkit-tap-highlight-color: transparent; /* Removes blue tap highlight on iOS/Android */  
