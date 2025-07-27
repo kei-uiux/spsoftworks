@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Choose Your Theme</title>
+  <style>
+    body {
+      background-color: #121212; /* Spotify dark background */
+      color: #ffffff;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 20px;
+    }
+
+    .square-button {
+      background-color: #1ed760; /* Official Spotify Green */
+      color: white;
+      border: none;
+      width: 150px;
+      height: 150px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .square-button:hover {
+      background-color: #1fdf64; /* Slightly brighter on hover */
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <h1>Choose your preferred theme</h1>
+
+  <div class="button-row">
+    <button class="square-button" onclick="alert('Original Theme Selected!')">Original theme</button>
+    <button class="square-button" onclick="alert('AMOLED Black Theme Selected!')">AMOLED Black theme</button>
+  </div>
+</body>
+</html>
