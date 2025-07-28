@@ -482,22 +482,23 @@
         
         // Special effect for first launch - fast initial animation
         if (isFirstLaunch) {
-          // After fast animation completes, switch to slow animation
-          setTimeout(() => {
-            const elements = document.querySelectorAll('.background-element');
-            elements.forEach(el => {
-              // Reset animation first
-              el.style.animation = 'none';
+          sessionStorage.setItem('firstLaunch', 'completed');
 
-              // Force reflow (flush styles)
-              void el.offsetWidth;
+          // Fast + Slow combo
+          const fastDuration = 5 + Math.random() * 3;
+          const slowDuration = 25 + Math.random() * 30;
+          const delay = Math.random() * 1.5;
 
-              // Apply new animation
-              const newDuration = 25 + Math.random() * 30;
-              const newDelay = Math.random() * 5;
-              el.style.animation = `floatSlow ${newDuration}s infinite linear ${newDelay}s`;
-            });
-          }, 8000);
+          // Combine animations using shorthand with multiple animations
+          element.style.animation = 
+            `floatFast ${fastDuration}s linear ${delay}s 1 forwards, ` + 
+            `floatSlow ${slowDuration}s linear ${fastDuration + delay}s infinite`;
+        }
+        else {
+          // Just slow animation for future visits
+          const duration = 25 + Math.random() * 30;
+          const delay = Math.random() * 5;
+          element.style.animation = `floatSlow ${duration}s linear ${delay}s infinite`;
         }
       }
       
