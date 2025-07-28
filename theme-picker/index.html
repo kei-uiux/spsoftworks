@@ -48,7 +48,7 @@
       justify-content: center;  
       text-align: center;
       width: 100%;
-      max-width: 600px;
+      max-width: 800px; /* Increased max-width for desktop */
       padding: 20px;
       box-sizing: border-box;
       z-index: 10;
@@ -100,6 +100,7 @@
       background-color: #1ed760; /* Spotify green */  
       color: white;  
       border: none;  
+      /* Default size for mobile */
       width: 140px;  
       height: 140px;  
       font-size: 16px;  
@@ -121,8 +122,7 @@
     }  
   
     .square-button:hover,  
-    .square-button:focus,  
-    .square-button:active {  
+    .square-button:focus {  
       transform: scale(1.10);  
       outline: none;  
       background-color: #1fdf64; /* Slightly brighter green */
@@ -157,6 +157,23 @@
       opacity: 0;
       animation: fadeIn 1s ease 1.5s forwards;
       text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    }
+
+    /* Desktop view - larger buttons */
+    @media (min-width: 769px) {
+      .square-button {
+        width: 200px; /* Bigger for desktop */
+        height: 200px; /* Bigger for desktop */
+        font-size: 18px; /* Slightly larger text */
+      }
+      
+      .button-row {
+        gap: 40px; /* More space between buttons */
+      }
+      
+      h1 {
+        font-size: 28px; /* Larger heading for desktop */
+      }
     }
 
     /* Mobile responsiveness */  
@@ -220,8 +237,8 @@
     <h1>Choose your preferred theme</h1>  
   
     <div class="button-row">  
-      <button class="square-button" onclick="window.location.href='https://example.com/original-theme'">Original theme</button>  
-      <button class="square-button" onclick="window.location.href='https://example.com/amoled-theme'">AMOLED Black theme</button>  
+      <button class="square-button" id="originalThemeBtn">Original theme</button>  
+      <button class="square-button" id="amoledThemeBtn">AMOLED Black theme</button>  
     </div>
     
     <p class="theme-info">Both themes can be directly installed even when the current theme is different</p>
@@ -229,14 +246,62 @@
   
   <script>
     // Add a subtle interactive effect to buttons
-    document.querySelectorAll('.square-button').forEach(button => {
-      button.addEventListener('click', function() {
+    const buttons = document.querySelectorAll('.square-button');
+    let activeButton = null;
+
+    buttons.forEach(button => {
+      button.addEventListener('click', function(e) {
+        // Remove active class from all buttons
+        buttons.forEach(btn => {
+          btn.classList.remove('active');
+          btn.style.transform = '';
+        });
+        
+        // Add active class to clicked button
+        this.classList.add('active');
+        
+        // Apply click animation
         this.style.transform = 'scale(0.95)';
         setTimeout(() => {
-          this.style.transform = 'scale(1.10)';
+          if (this.classList.contains('active')) {
+            this.style.transform = 'scale(1.10)';
+          }
         }, 150);
+        
+        // Store reference to active button
+        activeButton = this;
+        
+        // Simulate navigation after animation
+        setTimeout(() => {
+          if (this.id === 'originalThemeBtn') {
+            window.location.href = 'https://example.com/original-theme';
+          } else if (this.id === 'amoledThemeBtn') {
+            window.location.href = 'https://example.com/amoled-theme';
+          }
+        }, 300);
       });
     });
+    
+    // Reset buttons when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.square-button')) {
+        buttons.forEach(button => {
+          button.classList.remove('active');
+          button.style.transform = '';
+        });
+        activeButton = null;
+      }
+    });
+    
+    // Reset other button when one is clicked
+    function resetOtherButtons(currentButton) {
+      buttons.forEach(button => {
+        if (button !== currentButton) {
+          button.classList.remove('active');
+          button.style.transform = '';
+        }
+      });
+    }
     
     // Add floating background elements dynamically
     function createBackgroundElements() {
@@ -252,8 +317,11 @@
         const type = types[Math.floor(Math.random() * types.length)];
         element.classList.add(type);
         
-        // Random size
-        const size = 40 + Math.random() * 100;
+        // Random size (larger for desktop)
+        const isDesktop = window.innerWidth > 768;
+        const size = isDesktop ? 
+          80 + Math.random() * 140 : 
+          40 + Math.random() * 100;
         element.style.width = `${size}px`;
         element.style.height = `${size}px`;
         
