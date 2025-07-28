@@ -224,6 +224,20 @@
       }
     }
 
+    @keyframes floatSlow {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.15;
+      }
+      70% {
+        opacity: 0.15;
+      }
+      100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
     .footer {
       position: absolute;
       bottom: 20px;
@@ -477,7 +491,7 @@
               const newDelay = Math.random() * 5;
               
               // Reset animation to slow version
-              el.style.animation = `float ${newDuration}s infinite linear ${newDelay}s`;
+              el.style.animation = `floatSlow ${newDuration}s infinite linear ${newDelay}s`;
             });
           }, 8000); // After initial fast animation completes
         }
