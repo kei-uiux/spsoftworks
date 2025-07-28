@@ -14,10 +14,15 @@
     }
 
     body {  
-      background-color: #121212; /* Spotify dark background */  
+      /* Background image with dark overlay */
+      background: 
+        linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), 
+        url('https://images.unsplash.com/photo-1494232410401-ad00d5433cfa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') 
+        center/cover no-repeat;
       color: #ffffff;  
       font-family: 'Helvetica Neue', Arial, sans-serif;  
       margin: 0;
+      transition: background-image 0.5s ease;
     }
 
     /* Center wrapper to fix exact vertical + horizontal centering */
@@ -75,7 +80,7 @@
       justify-content: center;  
       opacity: 0;           /* Start hidden */
       animation: buttonsFadeUp 2s ease forwards;
-      animation-delay: 0s;  /* Start immediately */
+      animation-delay: 0.5s;  /* Slight delay after heading */
     }  
   
     .square-button {  
@@ -88,7 +93,7 @@
       font-weight: bold;  
       border-radius: 12px;  
       cursor: pointer;  
-      transition: transform 0.2s ease-in-out;
+      transition: transform 0.2s ease-in-out, background-color 0.3s;
       transform-origin: center;
       user-select: none;         
       -webkit-user-select: none;  
@@ -96,6 +101,9 @@
       -ms-user-select: none;  
       -webkit-tap-highlight-color: transparent;
       will-change: transform;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }  
   
     .square-button:hover,  
@@ -103,10 +111,45 @@
     .square-button:active {  
       transform: scale(1.10);  
       outline: none;  
-    }  
-  
+      background-color: #1fdf64; /* Slightly brighter green */
+    } 
+    
+    .square-button:active {
+      transform: scale(1.05);
+    }
+    
+    .square-button::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.1);
+      transform: scale(0);
+      border-radius: 12px;
+      transition: transform 0.3s ease;
+    }
+    
+    .square-button:hover::after {
+      transform: scale(1);
+    }
+    
+    .theme-info {
+      margin-top: 25px;
+      font-size: 14px;
+      color: #b3b3b3;
+      max-width: 500px;
+      opacity: 0;
+      animation: fadeIn 1s ease 1.5s forwards;
+    }
+
     /* Mobile responsiveness */  
     @media (max-width: 480px) {  
+      h1 {
+        font-size: 20px;
+      }
+      
       .square-button {  
         width: 100%;  
         max-width: 280px;  
@@ -129,6 +172,20 @@
       <button class="square-button" onclick="window.location.href='https://example.com/original-theme'">Original theme</button>  
       <button class="square-button" onclick="window.location.href='https://example.com/amoled-theme'">AMOLED Black theme</button>  
     </div>
+    
+    <p class="theme-info">Select a theme to personalize your experience. Your choice will be saved across all your devices.</p>
   </div>
+  
+  <script>
+    // Add a subtle interactive effect to buttons
+    document.querySelectorAll('.square-button').forEach(button => {
+      button.addEventListener('click', function() {
+        this.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+          this.style.transform = 'scale(1.10)';
+        }, 150);
+      });
+    });
+  </script>
 </body>  
 </html>
