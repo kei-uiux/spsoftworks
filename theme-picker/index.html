@@ -1,57 +1,137 @@
-<!DOCTYPE html>  
-<html lang="en">  
-<head>  
-  <meta charset="UTF-8">  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">  
-  <title>Choose Your Theme</title>  
-  <style>  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Choose Your Theme</title>
+  <style>
     html, body {
+      margin: 0;
+      padding: 0;
       height: 100%;
-      margin: 0;
-      overflow: hidden; /* Disable scrolling */
       width: 100%;
-      -webkit-tap-highlight-color: transparent; /* Removes blue tap highlight on iOS/Android */
+      font-family: 'Helvetica Neue', Arial, sans-serif;
     }
 
-    body {  
-      /* Dark overlay with animated GIF background */
-      background: 
+    body {
+      background:
         linear-gradient(rgba(18, 18, 18, 0.85), rgba(18, 18, 18, 0.85)),
-        url('https://cdn.pixabay.com/animation/2024/02/14/19/10/19-10-26-764_256.gif') 
-        center/cover no-repeat;
-      color: #ffffff;  
-      font-family: 'Helvetica Neue', Arial, sans-serif;  
-      margin: 0;
+        url('https://cdn.pixabay.com/animation/2024/02/14/19/10/19-10-26-764_256.gif') center/cover no-repeat;
+      color: #ffffff;
+      overflow: hidden;
       position: relative;
+      min-height: 100svh;
     }
 
-    /* Dark overlay to ensure readability */
     .overlay {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      inset: 0;
       background: rgba(0, 0, 0, 0.5);
-      z-index: -1;
+      z-index: 0;
     }
 
-    /* Center wrapper to fix exact vertical + horizontal centering */
     .center-wrapper {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      display: flex;  
-      flex-direction: column;  
-      align-items: center;  
-      justify-content: center;  
-      text-align: center;
-      width: 100%;
-      max-width: 800px; /* Increased max-width for desktop */
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 10;
       padding: 20px;
       box-sizing: border-box;
-      z-index: 10;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 30px;
+      opacity: 0;
+      animation: fadeIn 2s ease forwards;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      opacity: 0;
+      animation: buttonsFadeUp 2s ease forwards;
+      animation-delay: 0.5s;
+    }
+
+    .square-button {
+      background-color: #1ed760;
+      color: white;
+      border: none;
+      width: 180px;
+      height: 180px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.2s ease-in-out, background-color 0.3s;
+      transform-origin: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+      z-index: 20;
+    }
+
+    .square-button:hover,
+    .square-button:focus {
+      transform: scale(1.1);
+      background-color: #1fdf64;
+      outline: none;
+    }
+
+    .square-button:active {
+      transform: scale(1.15);
+    }
+
+    .square-button::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      transform: scale(0);
+      transition: transform 0.3s ease;
+    }
+
+    .square-button:hover::after {
+      transform: scale(1);
+    }
+
+    .theme-info {
+      margin-top: 25px;
+      font-size: 14px;
+      color: #b3b3b3;
+      max-width: 500px;
+      opacity: 0;
+      animation: fadeIn 1s ease 1.5s forwards;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    }
+
+    @media (max-width: 480px) {
+      .square-button {
+        width: 100%;
+        max-width: 280px;
+        height: 100px;
+        font-size: 15px;
+      }
+
+      .button-row {
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      h1 {
+        font-size: 20px;
+      }
     }
 
     @keyframes fadeIn {
@@ -65,20 +145,10 @@
       }
     }
 
-    h1 {  
-      font-size: 24px;  
-      margin-bottom: 30px;  
-      user-select: none;  
-      -webkit-user-select: none;  
-      opacity: 0;
-      animation: fadeIn 2s ease forwards;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-    }  
-  
     @keyframes buttonsFadeUp {
       from {
         opacity: 0;
-        transform: translateY(100px); /* moved further down */
+        transform: translateY(100px);
       }
       to {
         opacity: 1;
@@ -86,266 +156,57 @@
       }
     }
 
-    .button-row {  
-      display: flex;  
-      gap: 20px;  
-      flex-wrap: wrap;  
-      justify-content: center;  
-      opacity: 0;           /* Start hidden */
-      animation: buttonsFadeUp 2s ease forwards;
-      animation-delay: 0.5s;  /* Slight delay after heading */
-    }  
-  
-    .square-button {  
-      background-color: #1ed760; /* Spotify green */  
-      color: white;  
-      border: none;  
-      /* Default size for mobile */
-      width: 140px;  
-      height: 140px;  
-      font-size: 16px;  
-      font-weight: bold;  
-      border-radius: 12px;  
-      cursor: pointer;  
-      transition: transform 0.2s ease-in-out, background-color 0.3s;
-      transform-origin: center;
-      user-select: none;         
-      -webkit-user-select: none;  
-      -moz-user-select: none;  
-      -ms-user-select: none;  
-      -webkit-tap-highlight-color: transparent;
-      will-change: transform;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-      z-index: 20;
-    }  
-  
-    .square-button:hover,  
-    .square-button:focus {  
-      transform: scale(1.10);  
-      outline: none;  
-      background-color: #1fdf64; /* Slightly brighter green */
-    } 
-    
-    .square-button:active {
-      transform: scale(1.05);
-    }
-    
-    .square-button::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(255, 255, 255, 0.1);
-      transform: scale(0);
-      border-radius: 12px;
-      transition: transform 0.3s ease;
-    }
-    
-    .square-button:hover::after {
-      transform: scale(1);
-    }
-    
-    .theme-info {
-      margin-top: 25px;
-      font-size: 14px;
-      color: #b3b3b3;
-      max-width: 500px;
-      opacity: 0;
-      animation: fadeIn 1s ease 1.5s forwards;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-    }
-
-    /* Desktop view - larger buttons */
-    @media (min-width: 769px) {
-      .square-button {
-        width: 200px; /* Bigger for desktop */
-        height: 200px; /* Bigger for desktop */
-        font-size: 18px; /* Slightly larger text */
-      }
-      
-      .button-row {
-        gap: 40px; /* More space between buttons */
-      }
-      
-      h1 {
-        font-size: 28px; /* Larger heading for desktop */
-      }
-    }
-
-    /* Mobile responsiveness */  
-    @media (max-width: 480px) {  
-      h1 {
-        font-size: 20px;
-      }
-      
-      .square-button {  
-        width: 100%;  
-        max-width: 280px;  
-        height: 100px;  
-        font-size: 15px;  
-      }  
-  
-      .button-row {  
-        flex-direction: column;  
-        gap: 16px;  
-      }  
-    }
-    
-    /* Animation for background elements */
+    /* Background shapes */
     .background-element {
       position: absolute;
-      opacity: 0.2;
+      opacity: 0;
       z-index: 0;
-      animation: float 15s infinite linear;
+      animation: floatUp 25s linear infinite;
+      pointer-events: none;
     }
-    
+
     .circle {
       border-radius: 50%;
-      background: linear-gradient(135deg, #1ed760, #1db954);
     }
-    
+
     .square {
       transform: rotate(45deg);
-      background: linear-gradient(135deg, #191414, #121212);
     }
-    
-    @keyframes float {
+
+    @keyframes floatUp {
       0% {
-        transform: translateY(0) rotate(0deg);
+        transform: translateY(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.2;
+      }
+      90% {
+        opacity: 0.2;
       }
       100% {
-        transform: translateY(-100vh) rotate(360deg);
+        transform: translateY(-200vh);
+        opacity: 0;
       }
     }
-  </style>  
-</head>  
-<body>  
-  <!-- Background elements for depth -->
-  <div class="background-element circle" style="width: 120px; height: 120px; top: 10%; left: 15%;"></div>
-  <div class="background-element square" style="width: 80px; height: 80px; top: 20%; right: 20%; animation-delay: 2s;"></div>
-  <div class="background-element circle" style="width: 60px; height: 60px; bottom: 15%; left: 25%; animation-delay: 4s;"></div>
-  <div class="background-element square" style="width: 100px; height: 100px; bottom: 25%; right: 15%; animation-delay: 6s;"></div>
-  
-  <!-- Dark overlay -->
+  </style>
+</head>
+<body>
+  <!-- Background floating shapes (spawned off-screen) -->
+  <div class="background-element circle" style="width: 120px; height: 120px; top: 110%; left: 15%; animation-delay: 0s;"></div>
+  <div class="background-element square" style="width: 80px; height: 80px; top: 110%; right: 20%; animation-delay: 2s;"></div>
+  <div class="background-element circle" style="width: 60px; height: 60px; top: 110%; left: 25%; animation-delay: 4s;"></div>
+  <div class="background-element square" style="width: 100px; height: 100px; top: 110%; right: 15%; animation-delay: 6s;"></div>
+
   <div class="overlay"></div>
-  
+
   <div class="center-wrapper">
-    <h1>Choose your preferred theme</h1>  
-  
-    <div class="button-row">  
-      <button class="square-button" id="originalThemeBtn">Original theme</button>  
-      <button class="square-button" id="amoledThemeBtn">AMOLED Black theme</button>  
+    <h1>Choose your preferred theme</h1>
+    <div class="button-row">
+      <button class="square-button" onclick="window.location.href='https://example.com/original-theme'">Original theme</button>
+      <button class="square-button" onclick="window.location.href='https://example.com/amoled-theme'">AMOLED Black theme</button>
     </div>
-    
     <p class="theme-info">Both themes can be directly installed even when the current theme is different</p>
   </div>
-  
-  <script>
-    // Add a subtle interactive effect to buttons
-    const buttons = document.querySelectorAll('.square-button');
-    let activeButton = null;
-
-    buttons.forEach(button => {
-      button.addEventListener('click', function(e) {
-        // Remove active class from all buttons
-        buttons.forEach(btn => {
-          btn.classList.remove('active');
-          btn.style.transform = '';
-        });
-        
-        // Add active class to clicked button
-        this.classList.add('active');
-        
-        // Apply click animation
-        this.style.transform = 'scale(0.95)';
-        setTimeout(() => {
-          if (this.classList.contains('active')) {
-            this.style.transform = 'scale(1.10)';
-          }
-        }, 150);
-        
-        // Store reference to active button
-        activeButton = this;
-        
-        // Simulate navigation after animation
-        setTimeout(() => {
-          if (this.id === 'originalThemeBtn') {
-            window.location.href = 'https://example.com/original-theme';
-          } else if (this.id === 'amoledThemeBtn') {
-            window.location.href = 'https://example.com/amoled-theme';
-          }
-        }, 300);
-      });
-    });
-    
-    // Reset buttons when clicking outside
-    document.addEventListener('click', function(e) {
-      if (!e.target.closest('.square-button')) {
-        buttons.forEach(button => {
-          button.classList.remove('active');
-          button.style.transform = '';
-        });
-        activeButton = null;
-      }
-    });
-    
-    // Reset other button when one is clicked
-    function resetOtherButtons(currentButton) {
-      buttons.forEach(button => {
-        if (button !== currentButton) {
-          button.classList.remove('active');
-          button.style.transform = '';
-        }
-      });
-    }
-    
-    // Add floating background elements dynamically
-    function createBackgroundElements() {
-      const body = document.body;
-      const types = ['circle', 'square'];
-      const colors = ['#1ed760', '#1db954', '#191414', '#121212'];
-      
-      for (let i = 0; i < 8; i++) {
-        const element = document.createElement('div');
-        element.classList.add('background-element');
-        
-        // Random type
-        const type = types[Math.floor(Math.random() * types.length)];
-        element.classList.add(type);
-        
-        // Random size (larger for desktop)
-        const isDesktop = window.innerWidth > 768;
-        const size = isDesktop ? 
-          80 + Math.random() * 140 : 
-          40 + Math.random() * 100;
-        element.style.width = `${size}px`;
-        element.style.height = `${size}px`;
-        
-        // Random position
-        element.style.left = `${Math.random() * 100}%`;
-        element.style.top = `${Math.random() * 100}%`;
-        
-        // Random animation duration and delay
-        const duration = 20 + Math.random() * 25;
-        const delay = Math.random() * 10;
-        element.style.animation = `float ${duration}s infinite linear`;
-        element.style.animationDelay = `${delay}s`;
-        
-        // Random color
-        const color1 = colors[Math.floor(Math.random() * colors.length)];
-        const color2 = colors[Math.floor(Math.random() * colors.length)];
-        element.style.background = `linear-gradient(135deg, ${color1}, ${color2})`;
-        
-        body.appendChild(element);
-      }
-    }
-    
-    // Create background elements after page loads
-    window.addEventListener('load', createBackgroundElements);
-  </script>
-</body>  
+</body>
 </html>
