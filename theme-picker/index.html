@@ -486,14 +486,18 @@
           setTimeout(() => {
             const elements = document.querySelectorAll('.background-element');
             elements.forEach(el => {
-              // New slow animation settings
+              // Reset animation first
+              el.style.animation = 'none';
+
+              // Force reflow (flush styles)
+              void el.offsetWidth;
+
+              // Apply new animation
               const newDuration = 25 + Math.random() * 30;
               const newDelay = Math.random() * 5;
-              
-              // Reset animation to slow version
               el.style.animation = `floatSlow ${newDuration}s infinite linear ${newDelay}s`;
             });
-          }, 8000); // After initial fast animation completes
+          }, 8000);
         }
       }
       
