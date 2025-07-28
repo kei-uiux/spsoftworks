@@ -176,7 +176,6 @@
       position: absolute;
       opacity: 0.15;
       z-index: 0;
-      animation: float 20s infinite linear;
       filter: blur(1px);
     }
 
@@ -195,12 +194,33 @@
       background: linear-gradient(135deg, #1db954, #191414);
     }
 
+    /* Updated animation with fade-out effect */
     @keyframes float {
       0% {
         transform: translateY(0) rotate(0deg);
+        opacity: 0.15;
+      }
+      70% {
+        opacity: 0.15;
       }
       100% {
         transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Fast animation for first launch */
+    @keyframes floatFast {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.15;
+      }
+      70% {
+        opacity: 0.15;
+      }
+      100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
       }
     }
 
@@ -257,7 +277,6 @@
         justify-content: flex-start;
         padding-left: 20px;
         text-align: left;
-        /* Center buttons in mobile view */
         margin: 0 auto;
       }
       
@@ -402,6 +421,12 @@
           'linear-gradient(135deg, #1ed760, #191414)'
         ];
         
+        // Check if it's the first launch in this session
+        const isFirstLaunch = sessionStorage.getItem('firstLaunch') === null;
+        if (isFirstLaunch) {
+          sessionStorage.setItem('firstLaunch', 'completed');
+        }
+        
         // Create 18 background elements
         for (let i = 0; i < 18; i++) {
           const element = document.createElement('div');
@@ -423,9 +448,14 @@
           element.style.left = `${Math.random() * 100}%`;
           element.style.top = `${100 + Math.random() * 30}%`;
           
-          // Random animation
-          const duration = 25 + Math.random() * 30;
+          // Random animation settings
+          const duration = isFirstLaunch ? 
+            (5 + Math.random() * 3) : // Fast for first launch (5-8s)
+            (25 + Math.random() * 30); // Slow for subsequent runs (25-55s)
+            
           const delay = Math.random() * 15;
+          
+          // Use the animation with fade-out effect
           element.style.animation = `float ${duration}s infinite linear`;
           element.style.animationDelay = `${delay}s`;
           
@@ -434,6 +464,22 @@
           element.style.background = color;
           
           body.appendChild(element);
+        }
+        
+        // Special effect for first launch - fast initial animation
+        if (isFirstLaunch) {
+          // After fast animation completes, switch to slow animation
+          setTimeout(() => {
+            const elements = document.querySelectorAll('.background-element');
+            elements.forEach(el => {
+              // New slow animation settings
+              const newDuration = 25 + Math.random() * 30;
+              const newDelay = Math.random() * 5;
+              
+              // Reset animation to slow version
+              el.style.animation = `float ${newDuration}s infinite linear ${newDelay}s`;
+            });
+          }, 8000); // After initial fast animation completes
         }
       }
       
