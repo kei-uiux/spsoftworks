@@ -224,20 +224,6 @@
       }
     }
 
-    @keyframes floatSlow {
-      0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 0.15;
-      }
-      70% {
-        opacity: 0.15;
-      }
-      100% {
-        transform: translateY(-100vh) rotate(360deg);
-        opacity: 0;
-      }
-    }
-
     .footer {
       position: absolute;
       bottom: 20px;
@@ -369,12 +355,11 @@
   </div>
   
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       const originalBtn = document.getElementById('originalThemeBtn');
       const amoledBtn = document.getElementById('amoledThemeBtn');
       let activeButton = null;
-      
-      // Function to reset all buttons to normal state
+
       function resetButtons() {
         [originalBtn, amoledBtn].forEach(btn => {
           btn.style.transform = '';
@@ -382,49 +367,35 @@
           btn.style.backgroundColor = 'rgba(30, 215, 96, 0.15)';
         });
       }
-      
-      // Function to handle button clicks
+
       function handleButtonClick(button, url) {
-        // Reset all buttons
         resetButtons();
-        
-        // Apply click effect to current button
         button.style.transform = 'scale(0.95)';
         button.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.3)';
         button.style.backgroundColor = 'rgba(30, 215, 96, 0.3)';
-        
-        // Set as active button
         activeButton = button;
-        
-        // After animation, navigate to URL
         setTimeout(() => {
-          // Reset button after animation
           resetButtons();
           activeButton = null;
-          
-          // Navigate to the theme URL
           window.location.href = url;
         }, 300);
       }
-      
-      // Add event listeners
-      originalBtn.addEventListener('click', function() {
+
+      originalBtn.addEventListener('click', function () {
         handleButtonClick(this, 'https://example.com/original-theme');
       });
-      
-      amoledBtn.addEventListener('click', function() {
+
+      amoledBtn.addEventListener('click', function () {
         handleButtonClick(this, 'https://example.com/amoled-theme');
       });
-      
-      // Reset buttons when clicking outside
-      document.addEventListener('click', function(e) {
+
+      document.addEventListener('click', function (e) {
         if (!originalBtn.contains(e.target) && !amoledBtn.contains(e.target)) {
           resetButtons();
           activeButton = null;
         }
       });
-      
-      // Create background elements
+
       function createBackgroundElements() {
         const body = document.body;
         const types = ['circle', 'square', 'triangle'];
@@ -434,75 +405,33 @@
           'linear-gradient(135deg, #1db954, #191414)',
           'linear-gradient(135deg, #1ed760, #191414)'
         ];
-        
-        // Check if it's the first launch in this session
-        const isFirstLaunch = sessionStorage.getItem('firstLaunch') === null;
-        if (isFirstLaunch) {
-          sessionStorage.setItem('firstLaunch', 'completed');
-        }
-        
-        // Create 18 background elements
-        for (let i = 0; i < 18; i++) {
+
+        const total = 18;
+
+        for (let i = 0; i < total; i++) {
           const element = document.createElement('div');
           element.classList.add('background-element');
-          
-          // Random type
           const type = types[Math.floor(Math.random() * types.length)];
           element.classList.add(type);
-          
-          // Random size
+
           const isMobile = window.innerWidth <= 768;
-          const size = isMobile ? 
-            (40 + Math.random() * 80) : 
-            (60 + Math.random() * 140);
+          const size = isMobile ? (40 + Math.random() * 80) : (60 + Math.random() * 140);
           element.style.width = `${size}px`;
           element.style.height = `${size}px`;
-          
-          // Position below the viewport (100% to 130% of viewport height)
           element.style.left = `${Math.random() * 100}%`;
           element.style.top = `${100 + Math.random() * 30}%`;
-          
-          // Random animation settings
-          const duration = isFirstLaunch ? 
-            (5 + Math.random() * 3) : // Fast for first launch (5-8s)
-            (25 + Math.random() * 30); // Slow for subsequent runs (25-55s)
-            
-          const delay = Math.random() * 15;
-          
-          // Use the animation with fade-out effect
-          element.style.animation = `float ${duration}s infinite linear`;
-          element.style.animationDelay = `${delay}s`;
-          
-          // Random color
+
           const color = colors[Math.floor(Math.random() * colors.length)];
           element.style.background = color;
-          
-          body.appendChild(element);
-        }
-        
-        // Special effect for first launch - fast initial animation
-        if (isFirstLaunch) {
-          sessionStorage.setItem('firstLaunch', 'completed');
 
-          // Fast + Slow combo
-          const fastDuration = 5 + Math.random() * 3;
-          const slowDuration = 25 + Math.random() * 30;
+          const duration = 5 + Math.random() * 3; // consistent fast speed
           const delay = Math.random() * 1.5;
 
-          // Combine animations using shorthand with multiple animations
-          element.style.animation = 
-            `floatFast ${fastDuration}s linear ${delay}s 1 forwards, ` + 
-            `floatSlow ${slowDuration}s linear ${fastDuration + delay}s infinite`;
-        }
-        else {
-          // Just slow animation for future visits
-          const duration = 25 + Math.random() * 30;
-          const delay = Math.random() * 5;
-          element.style.animation = `floatSlow ${duration}s linear ${delay}s infinite`;
+          element.style.animation = `floatFast ${duration}s linear ${delay}s infinite`;
+
+          body.appendChild(element);
         }
       }
-      
-      // Create background elements
       createBackgroundElements();
     });
   </script>
