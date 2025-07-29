@@ -10,6 +10,16 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+    }
+    
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      -webkit-tap-highlight-color: transparent;
+      background: #121212;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
     body {  
       position: relative;
@@ -149,7 +159,7 @@
       opacity: 0;
       animation: buttonsFadeUp 1.5s ease forwards;
       animation-delay: 0.5s;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
     }  
   
     .square-button {  
@@ -212,6 +222,19 @@
       filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
     }
     
+    .theme-info {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.9rem;
+      max-width: 85%;
+      text-align: center;
+      margin: 20px 0;
+      padding: 0 20px;
+      line-height: 1.5;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+      animation-delay: 1.2s;
+    }
+    
     /* Mobile responsiveness */  
     @media (max-width: 768px) {  
       h1 {
@@ -232,6 +255,10 @@
       
       .icon {
         font-size: 2.8rem;
+      }
+      
+      .theme-info {
+        font-size: 0.85rem;
       }
     }
     
@@ -255,49 +282,26 @@
         margin-right: 20px;
         font-size: 2.5rem;
       }
+      
+      .theme-info {
+        font-size: 0.8rem;
+        max-width: 95%;
+      }
     }
     
     /* Footer */
     .footer {
       position: absolute;
       bottom: 20px;
-      color: rgba(255,255,255,0.85);
-      font-size: 1rem;
+      color: rgba(255,255,255,0.7);
+      font-size: 0.9rem;
       text-align: center;
       z-index: 3;
       opacity: 0;
       animation: fadeIn 1s ease forwards;
       animation-delay: 1.5s;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 25px;
-      background: rgba(18, 18, 18, 0.7);
-      border-radius: 30px;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.1);
-    }
-    
-    .spotify-logo {
-      display: inline-block;
-      width: 24px;
-      height: 24px;
-      background-color: #1ed760;
-      border-radius: 50%;
-      position: relative;
-    }
-    
-    .spotify-logo::after {
-      content: '';
-      position: absolute;
-      top: 6px;
-      left: 6px;
-      width: 12px;
-      height: 12px;
-      border: 3px solid #121212;
-      border-radius: 50%;
-      border-top-color: transparent;
-      transform: rotate(-30deg);
+      width: 100%;
+      padding: 10px;
     }
     
     /* Visualizer effect */
@@ -412,6 +416,10 @@
       </button>  
     </div>
     
+    <p class="theme-info">
+      Both themes can be directly installed even when the current theme is different.
+    </p>
+    
     <div class="visualizer">
       <div class="bar"></div>
       <div class="bar"></div>
@@ -427,7 +435,7 @@
   </div>
   
   <div class="footer">
-    <span class="spotify-logo"></span> Spotify Theme Experience
+    © 2025 SpotWorks Infrastructure
   </div>
   
   <script>
@@ -437,6 +445,7 @@
         document.querySelector('h1').style.opacity = 1;
         document.querySelector('.subtitle').style.opacity = 1;
         document.querySelector('.button-row').style.opacity = 1;
+        document.querySelector('.theme-info').style.opacity = 1;
         document.querySelector('.footer').style.opacity = 1;
       }, 100);
     });
