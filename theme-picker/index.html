@@ -15,7 +15,7 @@
 
     body {
       background: 
-        linear-gradient(rgba(18, 18, 18, 0.9), rgba(18, 18, 18, 0.9)),
+        linear-gradient(rgba(20, 131, 59, 0.9), rgba(20, 131, 59, 0.7)),
         url('https://cdn.pixabay.com/animation/2024/02/14/19/10/19-10-26-764_256.gif') 
         center/cover no-repeat;
       color: #ffffff;
@@ -30,7 +30,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(18, 18, 18, 0.9) 100%);
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.5) 0%, rgba(20, 131, 59, 0.6) 100%);
       z-index: -1;
     }
 
@@ -144,7 +144,7 @@
       justify-content: center;
       margin-bottom: 20px;
       border-radius: 50%;
-      background: rgba(18, 18, 18, 0.6);
+      background: rgba(20, 131, 59, 0.4);
     }
 
     .icon-container i {
@@ -165,11 +165,11 @@
       animation: fadeIn 1s ease 1.2s forwards;
       text-shadow: 0 1px 3px rgba(0,0,0,0.7);
       line-height: 1.6;
-      background: rgba(25, 20, 20, 0.4);
+      background: rgba(20, 131, 59, 0.3);
       padding: 15px 25px;
       border-radius: 12px;
       backdrop-filter: blur(5px);
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
     }
 
     .background-element {
@@ -209,33 +209,115 @@
       }
     }
 
-    /* Fast animation for first launch */
-    @keyframes floatFast {
-      0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 0.15;
-      }
-      70% {
-        opacity: 0.15;
-      }
-      100% {
-        transform: translateY(-100vh) rotate(360deg);
-        opacity: 0;
-      }
-    }
-
     .footer {
       position: absolute;
       bottom: 20px;
       width: 100%;
       text-align: center;
       font-size: 14px;
-      color: rgba(255, 255, 255, 0.4);
+      color: rgba(255, 255, 255, 0.5);
       z-index: 5;
       opacity: 0;
       animation: fadeIn 2s ease 2s forwards;
     }
 
+    /* Music Player Styles */
+    .music-player {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(20, 131, 59, 0.4);
+      padding: 8px 16px;
+      border-radius: 50px;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      z-index: 30;
+      opacity: 0;
+      animation: fadeIn 1s ease 0.5s forwards;
+    }
+    
+    .music-player button {
+      background: transparent;
+      border: none;
+      color: white;
+      cursor: pointer;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+    
+    .music-player button:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .volume-control {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .volume-slider {
+      width: 80px;
+      -webkit-appearance: none;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 2px;
+      outline: none;
+    }
+    
+    .volume-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: white;
+      cursor: pointer;
+    }
+    
+    .music-title {
+      font-size: 12px;
+      margin-right: 8px;
+      max-width: 120px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    /* Music wave animation */
+    .music-wave {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      height: 20px;
+      margin-left: 5px;
+    }
+    
+    .bar {
+      width: 3px;
+      background-color: #1ed760;
+      border-radius: 2px;
+      animation: wave 1.2s infinite ease-in-out;
+      transform-origin: bottom;
+    }
+    
+    .bar:nth-child(1) { height: 6px; animation-delay: 0s; }
+    .bar:nth-child(2) { height: 10px; animation-delay: 0.1s; }
+    .bar:nth-child(3) { height: 14px; animation-delay: 0.2s; }
+    .bar:nth-child(4) { height: 10px; animation-delay: 0.3s; }
+    .bar:nth-child(5) { height: 6px; animation-delay: 0.4s; }
+    
+    @keyframes wave {
+      0%, 100% { transform: scaleY(0.7); }
+      50% { transform: scaleY(1.5); }
+    }
+    
     /* Mobile responsiveness */
     @media (max-width: 768px) {
       h1 {
@@ -260,6 +342,20 @@
       
       .button-row {
         gap: 20px;
+      }
+      
+      .music-player {
+        top: 15px;
+        right: 15px;
+        padding: 6px 12px;
+      }
+      
+      .volume-slider {
+        width: 60px;
+      }
+      
+      .music-title {
+        max-width: 80px;
       }
     }
 
@@ -300,6 +396,20 @@
         font-size: 14px;
         padding: 12px 20px;
       }
+      
+      .music-player {
+        top: 10px;
+        right: 10px;
+        padding: 5px 10px;
+      }
+      
+      .volume-slider {
+        width: 40px;
+      }
+      
+      .music-title {
+        display: none;
+      }
     }
     
     /* Desktop-specific enhancements */
@@ -326,6 +436,29 @@
   
   <!-- Dark overlay -->
   <div class="overlay"></div>
+  
+  <!-- Music Player -->
+  <div class="music-player">
+    <div class="music-title">Ambient Forest</div>
+    <button id="playBtn">
+      <i class="fas fa-play"></i>
+    </button>
+    <button id="pauseBtn" style="display: none;">
+      <i class="fas fa-pause"></i>
+    </button>
+    <div class="volume-control">
+      <i class="fas fa-volume-down"></i>
+      <input type="range" min="0" max="1" step="0.01" value="0.5" class="volume-slider" id="volumeSlider">
+      <i class="fas fa-volume-up"></i>
+    </div>
+    <div class="music-wave" id="musicWave">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
+  </div>
   
   <div class="center-wrapper">
     <h1>Choose Your Preferred Theme</h1>
@@ -354,11 +487,60 @@
    © 2025 SpotWorks Infrastructure
   </div>
   
+  <!-- Audio element for background music -->
+  <audio id="bgMusic" loop>
+    <source src="https://assets.mixkit.co/music/download/mixkit-deep-urban-623.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+  
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const originalBtn = document.getElementById('originalThemeBtn');
       const amoledBtn = document.getElementById('amoledThemeBtn');
       let activeButton = null;
+      
+      // Music player elements
+      const bgMusic = document.getElementById('bgMusic');
+      const playBtn = document.getElementById('playBtn');
+      const pauseBtn = document.getElementById('pauseBtn');
+      const volumeSlider = document.getElementById('volumeSlider');
+      const musicWave = document.getElementById('musicWave');
+      
+      // Music player functionality
+      playBtn.addEventListener('click', function() {
+        bgMusic.play();
+        playBtn.style.display = 'none';
+        pauseBtn.style.display = 'block';
+        musicWave.style.display = 'flex';
+      });
+      
+      pauseBtn.addEventListener('click', function() {
+        bgMusic.pause();
+        playBtn.style.display = 'block';
+        pauseBtn.style.display = 'none';
+        musicWave.style.display = 'none';
+      });
+      
+      volumeSlider.addEventListener('input', function() {
+        bgMusic.volume = volumeSlider.value;
+      });
+      
+      // Set initial volume
+      bgMusic.volume = volumeSlider.value;
+      
+      // Auto-play music on page load (with user gesture)
+      document.body.addEventListener('click', function initAudio() {
+        // Try to play music on first user interaction
+        bgMusic.play().then(() => {
+          playBtn.style.display = 'none';
+          pauseBtn.style.display = 'block';
+          musicWave.style.display = 'flex';
+        }).catch(e => {
+          console.log("Autoplay prevented. User must click play button.");
+        });
+        // Remove this event listener after first interaction
+        document.body.removeEventListener('click', initAudio);
+      }, { once: true });
 
       function resetButtons() {
         [originalBtn, amoledBtn].forEach(btn => {
@@ -401,9 +583,9 @@
         const types = ['circle', 'square', 'triangle'];
         const colors = [
           'linear-gradient(135deg, #1ed760, #1db954)',
-          'linear-gradient(135deg, #191414, #121212)',
-          'linear-gradient(135deg, #1db954, #191414)',
-          'linear-gradient(135deg, #1ed760, #191414)'
+          'linear-gradient(135deg, #14833B, #0d5e29)',
+          'linear-gradient(135deg, #1db954, #14833B)',
+          'linear-gradient(135deg, #1ed760, #0d5e29)'
         ];
 
         const total = 18;
@@ -424,10 +606,10 @@
           const color = colors[Math.floor(Math.random() * colors.length)];
           element.style.background = color;
 
-          const duration = 5 + Math.random() * 3; // consistent fast speed
+          const duration = 5 + Math.random() * 3; 
           const delay = Math.random() * 1.5;
 
-          element.style.animation = `floatFast ${duration}s linear ${delay}s infinite`;
+          element.style.animation = `float ${duration}s linear ${delay}s infinite`;
 
           body.appendChild(element);
         }
