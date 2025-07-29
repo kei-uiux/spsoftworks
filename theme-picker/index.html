@@ -3,80 +3,93 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>Choose Your Theme</title>
+  <title>Spotify Theme Selector</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
     html, body {
       height: 100%;
-      margin: 0;
-      overflow: hidden;
       width: 100%;
+      overflow: hidden;
       -webkit-tap-highlight-color: transparent;
-    }
-
-    body {
-      background: 
-        linear-gradient(rgba(18, 18, 18, 0.9), rgba(18, 18, 18, 0.9)),
-        url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWiGAmixtvOoMph16Du7QcLYmSz1-IWfeUMg&s') 
-        center/cover no-repeat;
-      color: #ffffff;
+      background: #121212;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      position: relative;
     }
 
-    .overlay {
+    body {  
+      position: relative;
+      margin: 0;
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    /* Animated background */
+    .background-container {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(18, 18, 18, 0.9) 100%);
-      z-index: -1;
+      overflow: hidden;
+      z-index: 0;
+    }
+    
+    .background-gif {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://cdn.pixabay.com/animation/2024/02/14/19/10/19-10-26-764_256.gif') no-repeat center center;
+      background-size: cover;
+      opacity: 0.8;
+      z-index: 1;
+    }
+    
+    /* Green tint overlay */
+    .background-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(29, 185, 84, 0.7), rgba(18, 18, 18, 0.9));
+      z-index: 2;
     }
 
+    /* Center wrapper */
     .center-wrapper {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      position: relative;
+      z-index: 3;
+      display: flex;  
+      flex-direction: column;  
+      align-items: center;  
+      justify-content: center;  
       text-align: center;
       width: 100%;
-      max-width: 900px;
+      max-width: 600px;
       padding: 20px;
-      box-sizing: border-box;
-      z-index: 10;
     }
 
+    /* Animations */
     @keyframes fadeIn {
       from {
         opacity: 0;
-        transform: translateY(-20px);
+        transform: translateY(-10px);
       }
       to {
         opacity: 1;
         transform: translateY(0);
       }
     }
-
-    h1 {
-      font-size: 32px;
-      margin-bottom: 40px;
-      user-select: none;
-      opacity: 0;
-      animation: fadeIn 1.5s ease forwards;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.7);
-      letter-spacing: 1px;
-      font-weight: 700;
-      background: linear-gradient(to right, #1ed760, #1db954);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      padding: 0 15px;
-    }
-
+    
     @keyframes buttonsFadeUp {
       from {
         opacity: 0;
@@ -87,353 +100,356 @@
         transform: translateY(0);
       }
     }
+    
+    @keyframes floating {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+    
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(30, 215, 96, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 15px rgba(30, 215, 96, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(30, 215, 96, 0);
+      }
+    }
 
-    .button-row {
-      display: flex;
-      gap: 40px;
-      flex-wrap: wrap;
-      justify-content: center;
+    h1 {  
+      font-size: 2.8rem;  
+      margin-bottom: 20px;  
+      user-select: none;  
+      -webkit-user-select: none;  
+      opacity: 0;
+      animation: fadeIn 1.5s ease forwards;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      background: linear-gradient(to right, #1ed760, #1db954);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .subtitle {
+      font-size: 1.2rem;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: fadeIn 1.5s ease forwards;
+      animation-delay: 0.3s;
+      font-weight: 300;
+      max-width: 90%;
+      line-height: 1.6;
+      padding: 0 20px;
+    }
+  
+    .button-row {  
+      display: flex;  
+      gap: 30px;  
+      flex-wrap: wrap;  
+      justify-content: center;  
       opacity: 0;
       animation: buttonsFadeUp 1.5s ease forwards;
-      animation-delay: 0.3s;
-      width: 100%;
-    }
-
-    .square-button {
-      background-color: rgba(30, 215, 96, 0.15);
-      color: white;
-      border: 2px solid rgba(30, 215, 96, 0.4);
-      width: 220px;
-      height: 220px;
-      font-size: 18px;
-      font-weight: bold;
-      border-radius: 16px;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      animation-delay: 0.5s;
+      margin-bottom: 40px;
+    }  
+  
+    .square-button {  
+      background: rgba(30, 215, 96, 0.15);
+      color: white;  
+      border: 2px solid rgba(30, 215, 96, 0.5);
+      width: 180px;  
+      height: 180px;  
+      font-size: 1.1rem;  
+      font-weight: 600;  
+      border-radius: 20px;  
+      cursor: pointer;  
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       transform-origin: center;
-      user-select: none;
+      user-select: none;  
+      -webkit-user-select: none;  
+      -webkit-tap-highlight-color: transparent;
+      box-shadow: 0 12px 25px rgba(0,0,0,0.4);
       position: relative;
       overflow: hidden;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-      z-index: 20;
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
-      padding: 15px;
-      line-height: 1.4;
-      backdrop-filter: blur(5px);
-    }
-
-    .square-button:hover {
-      background-color: rgba(30, 215, 96, 0.25);
-      transform: scale(1.08);
-      box-shadow: 0 12px 30px rgba(30, 215, 96, 0.25);
-    }
-
-    .square-button:active {
-      transform: scale(0.98);
-      transition: transform 0.1s ease;
-    }
-
-    .icon-container {
-      width: 100px;
-      height: 100px;
-      display: flex;
       align-items: center;
-      justify-content: center;
-      margin-bottom: 20px;
-      border-radius: 50%;
-      background: rgba(18, 18, 18, 0.6);
-    }
-
-    .icon-container i {
-      font-size: 60px;
-      transition: all 0.3s ease;
-    }
-
-    .square-button:hover .icon-container i {
-      transform: scale(1.1);
-    }
-
-    .theme-info {
-      margin-top: 35px;
-      font-size: 16px;
-      color: #b3b3b3;
-      max-width: 600px;
-      opacity: 0;
-      animation: fadeIn 1s ease 1.2s forwards;
-      text-shadow: 0 1px 3px rgba(0,0,0,0.7);
-      line-height: 1.6;
-      background: rgba(25, 20, 20, 0.4);
-      padding: 15px 25px;
-      border-radius: 12px;
-      backdrop-filter: blur(5px);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .background-element {
+      padding: 25px;
+      backdrop-filter: blur(8px);
+      animation: pulse 3s infinite;
+      animation-delay: 3s;
+    }  
+    
+    .square-button::after {
+      content: '';
       position: absolute;
-      opacity: 0.15;
-      z-index: 0;
-      filter: blur(1px);
-    }
-
-    .circle {
-      border-radius: 50%;
-      background: linear-gradient(135deg, #1ed760, #1db954);
-    }
-
-    .square {
-      transform: rotate(45deg);
-      background: linear-gradient(135deg, #191414, #121212);
-    }
-
-    .triangle {
-      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-      background: linear-gradient(135deg, #1db954, #191414);
-    }
-
-    /* Updated animation with fade-out effect */
-    @keyframes float {
-      0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 0.15;
-      }
-      70% {
-        opacity: 0.15;
-      }
-      100% {
-        transform: translateY(-100vh) rotate(360deg);
-        opacity: 0;
-      }
-    }
-
-    /* Fast animation for first launch */
-    @keyframes floatFast {
-      0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 0.15;
-      }
-      70% {
-        opacity: 0.15;
-      }
-      100% {
-        transform: translateY(-100vh) rotate(360deg);
-        opacity: 0;
-      }
-    }
-
-    .footer {
-      position: absolute;
-      bottom: 20px;
+      top: 0;
+      left: 0;
       width: 100%;
-      text-align: center;
-      font-size: 14px;
-      color: rgba(255, 255, 255, 0.4);
-      z-index: 5;
-      opacity: 0;
-      animation: fadeIn 2s ease 2s forwards;
+      height: 100%;
+      background: radial-gradient(circle at center, rgba(30, 215, 96, 0.3), transparent 70%);
+      z-index: -1;
     }
-
-    /* Mobile responsiveness */
-    @media (max-width: 768px) {
+  
+    .square-button:hover,  
+    .square-button:focus {  
+      transform: scale(1.08) rotate(1deg);  
+      outline: none;  
+      box-shadow: 0 15px 30px rgba(0,0,0,0.5), 0 0 30px rgba(30, 215, 96, 0.4);
+      background: rgba(30, 215, 96, 0.25);
+      border-color: rgba(30, 215, 96, 0.8);
+    }  
+    
+    .square-button:active {
+      transform: scale(0.96);
+    }
+    
+    .icon {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      animation: floating 3s ease-in-out infinite;
+      animation-delay: 1.5s;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+    }
+    
+    /* Mobile responsiveness */  
+    @media (max-width: 768px) {  
       h1 {
-        font-size: 24px;
+        font-size: 2.2rem;
+        margin-bottom: 15px;
+      }
+      
+      .subtitle {
+        font-size: 1rem;
         margin-bottom: 30px;
       }
       
-      .square-button {
-        width: 160px;
-        height: 160px;
-        font-size: 16px;
+      .square-button {  
+        width: 160px;  
+        height: 160px;  
+        font-size: 1rem;  
       }
       
-      .icon-container {
-        width: 80px;
-        height: 80px;
-      }
-      
-      .icon-container i {
-        font-size: 40px;
-      }
-      
-      .button-row {
-        gap: 20px;
+      .icon {
+        font-size: 2.8rem;
       }
     }
-
-    @media (max-width: 480px) {
-      h1 {
-        font-size: 22px;
+    
+    @media (max-width: 480px) {  
+      .button-row {  
+        flex-direction: column;  
+        gap: 20px;  
       }
       
-      .square-button {
-        width: 100%;
-        max-width: 280px;
-        height: 120px;
-        font-size: 15px;
+      .square-button {  
+        width: 100%;  
+        max-width: 300px;  
+        height: 130px;  
         flex-direction: row;
         justify-content: flex-start;
-        padding-left: 20px;
-        text-align: left;
-        margin: 0 auto;
+        padding: 20px;
       }
       
-      .icon-container {
-        width: 60px;
-        height: 60px;
+      .icon {
         margin-bottom: 0;
-        margin-right: 15px;
-      }
-      
-      .icon-container i {
-        font-size: 30px;
-      }
-      
-      .button-row {
-        flex-direction: column;
-        gap: 16px;
-      }
-      
-      .theme-info {
-        font-size: 14px;
-        padding: 12px 20px;
+        margin-right: 20px;
+        font-size: 2.5rem;
       }
     }
     
-    /* Desktop-specific enhancements */
-    @media (min-width: 1024px) {
-      .square-button {
-        width: 240px;
-        height: 240px;
-        font-size: 20px;
+    /* Footer */
+    .footer {
+      position: absolute;
+      bottom: 20px;
+      color: rgba(255,255,255,0.85);
+      font-size: 1rem;
+      text-align: center;
+      z-index: 3;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+      animation-delay: 1.5s;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 25px;
+      background: rgba(18, 18, 18, 0.7);
+      border-radius: 30px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .spotify-logo {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      background-color: #1ed760;
+      border-radius: 50%;
+      position: relative;
+    }
+    
+    .spotify-logo::after {
+      content: '';
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      width: 12px;
+      height: 12px;
+      border: 3px solid #121212;
+      border-radius: 50%;
+      border-top-color: transparent;
+      transform: rotate(-30deg);
+    }
+    
+    /* Visualizer effect */
+    .visualizer {
+      position: absolute;
+      bottom: 80px;
+      left: 0;
+      width: 100%;
+      height: 70px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 6px;
+      z-index: 2;
+      opacity: 0.8;
+    }
+    
+    .bar {
+      width: 8px;
+      background: #1ed760;
+      border-radius: 4px;
+      animation: visualizer 1.5s infinite ease-in-out;
+      height: 30px;
+      box-shadow: 0 0 10px rgba(30, 215, 96, 0.5);
+    }
+    
+    .bar:nth-child(1) { animation-delay: 0s; height: 50px; }
+    .bar:nth-child(2) { animation-delay: 0.1s; height: 70px; }
+    .bar:nth-child(3) { animation-delay: 0.2s; height: 40px; }
+    .bar:nth-child(4) { animation-delay: 0.3s; height: 80px; }
+    .bar:nth-child(5) { animation-delay: 0.4s; height: 60px; }
+    .bar:nth-child(6) { animation-delay: 0.5s; height: 75px; }
+    .bar:nth-child(7) { animation-delay: 0.4s; height: 55px; }
+    .bar:nth-child(8) { animation-delay: 0.3s; height: 45px; }
+    .bar:nth-child(9) { animation-delay: 0.2s; height: 65px; }
+    .bar:nth-child(10) { animation-delay: 0.1s; height: 75px; }
+    
+    @keyframes visualizer {
+      0%, 100% { transform: scaleY(0.8); }
+      50% { transform: scaleY(1.5); }
+    }
+    
+    /* Floating music notes */
+    .floating-note {
+      position: absolute;
+      z-index: 1;
+      font-size: 28px;
+      opacity: 0;
+      animation: floatNote 15s linear infinite;
+      color: #1ed760;
+      filter: drop-shadow(0 0 5px rgba(30, 215, 96, 0.5));
+    }
+    
+    @keyframes floatNote {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
       }
-      
-      h1 {
-        font-size: 36px;
+      10% {
+        opacity: 0.8;
       }
-      
-      .button-row {
-        gap: 60px;
+      90% {
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
       }
     }
-  </style>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body>
-  <!-- Background elements will be generated by JavaScript -->
+    
+    /* Glow effect */
+    .glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(29, 185, 84, 0.2), transparent 70%);
+      z-index: 1;
+      pointer-events: none;
+    }
+  </style>  
+</head>  
+<body>  
+  <div class="background-container">
+    <div class="background-gif"></div>
+    <div class="background-overlay"></div>
+    <div class="glow"></div>
+  </div>
   
-  <!-- Dark overlay -->
-  <div class="overlay"></div>
+  <!-- Floating music notes -->
+  <div class="floating-note" style="left: 10%; animation-delay: 0s;">♪</div>
+  <div class="floating-note" style="left: 20%; animation-delay: 2s;">♫</div>
+  <div class="floating-note" style="left: 30%; animation-delay: 4s;">♪</div>
+  <div class="floating-note" style="left: 70%; animation-delay: 6s;">♫</div>
+  <div class="floating-note" style="left: 85%; animation-delay: 8s;">♪</div>
+  <div class="floating-note" style="left: 50%; animation-delay: 10s;">♫</div>
   
   <div class="center-wrapper">
-    <h1>Choose Your Preferred Theme</h1>
+    <h1>Choose Your Theme</h1>  
+    <div class="subtitle">Select your preferred Spotify experience to customize your music journey</div>
     
-    <div class="button-row">
-      <button class="square-button" id="originalThemeBtn">
-        <div class="icon-container">
-          <i class="fas fa-moon" style="color: #f0f0f0;"></i>
-        </div>
-        Original Theme
-      </button>
-      <button class="square-button" id="amoledThemeBtn">
-        <div class="icon-container">
-          <i class="fas fa-moon" style="color: #000; text-shadow: 0 0 8px rgba(255,255,255,0.5);"></i>
-        </div>
-        AMOLED Black Theme
-      </button>
+    <div class="button-row">  
+      <button class="square-button" onclick="window.location.href='https://example.com/original-theme'">
+        <div class="icon"><i class="fas fa-music"></i></div>
+        <div>Original Theme</div>
+      </button>  
+      <button class="square-button" onclick="window.location.href='https://example.com/amoled-theme'">
+        <div class="icon"><i class="fas fa-moon"></i></div>
+        <div>AMOLED Theme</div>
+      </button>  
     </div>
     
-    <p class="theme-info">
-      Both themes can be directly installed even when the current theme is different.
-    </p>
+    <div class="visualizer">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
   </div>
   
   <div class="footer">
-   © 2025 SpotWorks Infrastructure
+    <span class="spotify-logo"></span> Spotify Theme Experience
   </div>
   
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const originalBtn = document.getElementById('originalThemeBtn');
-      const amoledBtn = document.getElementById('amoledThemeBtn');
-      let activeButton = null;
-
-      function resetButtons() {
-        [originalBtn, amoledBtn].forEach(btn => {
-          btn.style.transform = '';
-          btn.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.4)';
-          btn.style.backgroundColor = 'rgba(30, 215, 96, 0.15)';
-        });
-      }
-
-      function handleButtonClick(button, url) {
-        resetButtons();
-        button.style.transform = 'scale(0.95)';
-        button.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.3)';
-        button.style.backgroundColor = 'rgba(30, 215, 96, 0.3)';
-        activeButton = button;
-        setTimeout(() => {
-          resetButtons();
-          activeButton = null;
-          window.location.href = url;
-        }, 300);
-      }
-
-      originalBtn.addEventListener('click', function () {
-        handleButtonClick(this, 'https://example.com/original-theme');
-      });
-
-      amoledBtn.addEventListener('click', function () {
-        handleButtonClick(this, 'https://example.com/amoled-theme');
-      });
-
-      document.addEventListener('click', function (e) {
-        if (!originalBtn.contains(e.target) && !amoledBtn.contains(e.target)) {
-          resetButtons();
-          activeButton = null;
-        }
-      });
-
-      function createBackgroundElements() {
-        const body = document.body;
-        const types = ['circle', 'square', 'triangle'];
-        const colors = [
-          'linear-gradient(135deg, #1ed760, #1db954)',
-          'linear-gradient(135deg, #191414, #121212)',
-          'linear-gradient(135deg, #1db954, #191414)',
-          'linear-gradient(135deg, #1ed760, #191414)'
-        ];
-
-        const total = 18;
-
-        for (let i = 0; i < total; i++) {
-          const element = document.createElement('div');
-          element.classList.add('background-element');
-          const type = types[Math.floor(Math.random() * types.length)];
-          element.classList.add(type);
-
-          const isMobile = window.innerWidth <= 768;
-          const size = isMobile ? (40 + Math.random() * 80) : (60 + Math.random() * 140);
-          element.style.width = `${size}px`;
-          element.style.height = `${size}px`;
-          element.style.left = `${Math.random() * 100}%`;
-          element.style.top = `${100 + Math.random() * 30}%`;
-
-          const color = colors[Math.floor(Math.random() * colors.length)];
-          element.style.background = color;
-
-          const duration = 5 + Math.random() * 3; // consistent fast speed
-          const delay = Math.random() * 1.5;
-
-          element.style.animation = `floatFast ${duration}s linear ${delay}s infinite`;
-
-          body.appendChild(element);
-        }
-      }
-      createBackgroundElements();
+    // Add a small delay to ensure animations run after page load
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        document.querySelector('h1').style.opacity = 1;
+        document.querySelector('.subtitle').style.opacity = 1;
+        document.querySelector('.button-row').style.opacity = 1;
+        document.querySelector('.footer').style.opacity = 1;
+      }, 100);
     });
   </script>
-</body>
+</body>  
 </html>
