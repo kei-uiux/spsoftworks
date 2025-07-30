@@ -221,103 +221,6 @@
       animation: fadeIn 2s ease 2s forwards;
     }
 
-    /* Music Player Styles */
-    .music-player {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: rgba(20, 131, 59, 0.4);
-      padding: 8px 16px;
-      border-radius: 50px;
-      backdrop-filter: blur(5px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      z-index: 30;
-      opacity: 0;
-      animation: fadeIn 1s ease 0.5s forwards;
-    }
-    
-    .music-player button {
-      background: transparent;
-      border: none;
-      color: white;
-      cursor: pointer;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s ease;
-    }
-    
-    .music-player button:hover {
-      background: rgba(255, 255, 255, 0.1);
-    }
-    
-    .volume-control {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    
-    .volume-slider {
-      width: 80px;
-      -webkit-appearance: none;
-      height: 4px;
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 2px;
-      outline: none;
-    }
-    
-    .volume-slider::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: white;
-      cursor: pointer;
-    }
-    
-    .music-title {
-      font-size: 12px;
-      margin-right: 8px;
-      max-width: 120px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    
-    /* Music wave animation */
-    .music-wave {
-      display: flex;
-      align-items: center;
-      gap: 3px;
-      height: 20px;
-      margin-left: 5px;
-    }
-    
-    .bar {
-      width: 3px;
-      background-color: #1ed760;
-      border-radius: 2px;
-      animation: wave 1.2s infinite ease-in-out;
-      transform-origin: bottom;
-    }
-    
-    .bar:nth-child(1) { height: 6px; animation-delay: 0s; }
-    .bar:nth-child(2) { height: 10px; animation-delay: 0.1s; }
-    .bar:nth-child(3) { height: 14px; animation-delay: 0.2s; }
-    .bar:nth-child(4) { height: 10px; animation-delay: 0.3s; }
-    .bar:nth-child(5) { height: 6px; animation-delay: 0.4s; }
-    
-    @keyframes wave {
-      0%, 100% { transform: scaleY(0.7); }
-      50% { transform: scaleY(1.5); }
-    }
-    
     /* Mobile responsiveness */
     @media (max-width: 768px) {
       h1 {
@@ -342,20 +245,6 @@
       
       .button-row {
         gap: 20px;
-      }
-      
-      .music-player {
-        top: 15px;
-        right: 15px;
-        padding: 6px 12px;
-      }
-      
-      .volume-slider {
-        width: 60px;
-      }
-      
-      .music-title {
-        max-width: 80px;
       }
     }
 
@@ -396,20 +285,6 @@
         font-size: 14px;
         padding: 12px 20px;
       }
-      
-      .music-player {
-        top: 10px;
-        right: 10px;
-        padding: 5px 10px;
-      }
-      
-      .volume-slider {
-        width: 40px;
-      }
-      
-      .music-title {
-        display: none;
-      }
     }
     
     /* Desktop-specific enhancements */
@@ -436,29 +311,6 @@
   
   <!-- Dark overlay -->
   <div class="overlay"></div>
-  
-  <!-- Music Player -->
-  <div class="music-player">
-    <div class="music-title">Ambient Forest</div>
-    <button id="playBtn">
-      <i class="fas fa-play"></i>
-    </button>
-    <button id="pauseBtn" style="display: none;">
-      <i class="fas fa-pause"></i>
-    </button>
-    <div class="volume-control">
-      <i class="fas fa-volume-down"></i>
-      <input type="range" min="0" max="1" step="0.01" value="0.5" class="volume-slider" id="volumeSlider">
-      <i class="fas fa-volume-up"></i>
-    </div>
-    <div class="music-wave" id="musicWave">
-      <div class="bar"></div>
-      <div class="bar"></div>
-      <div class="bar"></div>
-      <div class="bar"></div>
-      <div class="bar"></div>
-    </div>
-  </div>
   
   <div class="center-wrapper">
     <h1>Choose Your Preferred Theme</h1>
@@ -487,67 +339,11 @@
    © 2025 SpotWorks Infrastructure
   </div>
   
-  <!-- Fixed audio element -->
-  <audio id="bgMusic" loop>
-    <source src="<iframe   src='https://drive.google.com/file/d/1X5Pb1AUKg981XxlLAPwPIdknqVsfA-3_/preview' 
-   width='100%'
-   frameborder='0'
-" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
-  
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const originalBtn = document.getElementById('originalThemeBtn');
       const amoledBtn = document.getElementById('amoledThemeBtn');
       let activeButton = null;
-      
-      // Music player elements
-      const bgMusic = document.getElementById('bgMusic');
-      const playBtn = document.getElementById('playBtn');
-      const pauseBtn = document.getElementById('pauseBtn');
-      const volumeSlider = document.getElementById('volumeSlider');
-      const musicWave = document.getElementById('musicWave');
-      
-      // Music player functionality
-      playBtn.addEventListener('click', function() {
-        bgMusic.play().catch(e => {
-          console.log("Playback prevented: ", e);
-          playBtn.style.display = 'block';
-          pauseBtn.style.display = 'none';
-        });
-        playBtn.style.display = 'none';
-        pauseBtn.style.display = 'block';
-        musicWave.style.display = 'flex';
-      });
-      
-      pauseBtn.addEventListener('click', function() {
-        bgMusic.pause();
-        playBtn.style.display = 'block';
-        pauseBtn.style.display = 'none';
-        musicWave.style.display = 'none';
-      });
-      
-      volumeSlider.addEventListener('input', function() {
-        bgMusic.volume = volumeSlider.value;
-      });
-      
-      // Set initial volume
-      bgMusic.volume = volumeSlider.value;
-      
-      // Auto-play music on page load (with user gesture)
-      document.body.addEventListener('click', function initAudio() {
-        // Try to play music on first user interaction
-        bgMusic.play().then(() => {
-          playBtn.style.display = 'none';
-          pauseBtn.style.display = 'block';
-          musicWave.style.display = 'flex';
-        }).catch(e => {
-          console.log("Autoplay prevented. User must click play button.");
-        });
-        // Remove this event listener after first interaction
-        document.body.removeEventListener('click', initAudio);
-      }, { once: true });
 
       function resetButtons() {
         [originalBtn, amoledBtn].forEach(btn => {
