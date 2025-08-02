@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
+  <title>Redirecting...</title>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      background-color: #121212; /* Spotify dark */
+      color: white;
+      font-family: 'Google Sans', sans-serif;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      -webkit-user-select: none; /* Safari */
+      -moz-user-select: none;    /* Firefox */
+      -ms-user-select: none;     /* IE10+ */
+      user-select: none;         /* Standard */
+      touch-action: none;        /* Disables pull-to-refresh on some Androids */
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-weight: 500;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-weight: 400;
+      font-size: 1.2rem;
+    }
+
+    span#countdown {
+      font-weight: 500;
+    }
+
+    /* Prevent blue tap highlight on mobile */
+    * {
+      -webkit-tap-highlight-color: transparent;
+    }
+  </style>
+</head>
+<body>
+  <h1>You will be redirected to devuploads.com</h1>
+  <p>Redirecting in <span id="countdown">10</span> seconds...</p>
+
+  <script>
+    // Countdown timer
+    let seconds = 10;
+    const countdown = document.getElementById('countdown');
+
+    const interval = setInterval(() => {
+      seconds--;
+      countdown.textContent = seconds;
+      if (seconds <= 0) {
+        clearInterval(interval);
+        window.location.href = "https://example.com/amoled";
+      }
+    }, 1000);
+
+    // Prevent pull-to-refresh
+    let touchStartY = 0;
+
+    window.addEventListener('touchstart', e => {
+      if (e.touches.length !== 1) return;
+      touchStartY = e.touches[0].clientY;
+    });
+
+    window.addEventListener('touchmove', e => {
+      const touchY = e.touches[0].clientY;
+      if (touchY > touchStartY && window.scrollY === 0) {
+        e.preventDefault(); // Block swipe down
+      }
+    }, { passive: false });
+  </script>
+</body>
+</html>
