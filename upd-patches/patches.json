@@ -1,7 +1,7 @@
 {
-  "latest": "1.5.1",
+  "latest": "1.6.0",
   "force": true,
   "url": "https://spsoftworks.netlify.app",
-  "header": "Heads Up!",
-  "changelogs": "We're still working for the fix and will publish it as soon as possible. WE ARE NOT DISCONTINUED! Click the \"Update\" button to visit the new update portal site"
+  "header": "A new update is available!\nv Changelogs:",
+  "changelogs": ""
 }
