@@ -227,22 +227,18 @@
         font-size: 24px;
         margin-bottom: 30px;
       }
-      
       .square-button {
         width: 160px;
         height: 160px;
         font-size: 16px;
       }
-      
       .icon-container {
         width: 80px;
         height: 80px;
       }
-      
       .icon-container i {
         font-size: 40px;
       }
-      
       .button-row {
         gap: 20px;
       }
@@ -252,7 +248,7 @@
       h1 {
         font-size: 22px;
       }
-      
+
       .square-button {
         width: 100%;
         max-width: 280px;
@@ -304,7 +300,6 @@
       }
     }
     
-    /* Disable animations until page load */
     .no-animate h1,
     .no-animate .button-row,
     .no-animate .theme-info,
@@ -316,12 +311,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="no-animate">
-  
   <div class="overlay"></div>
-  
   <div class="center-wrapper">
     <h1>Choose your preferred theme for your patch</h1>
-    
     <div class="button-row">
       <button class="square-button" id="originalThemeBtn">
         <div class="icon-container">
@@ -336,12 +328,10 @@
         AMOLED Black Theme
       </button>
     </div>
-    
     <p class="theme-info">
       Current Version: v1.5.2-beta
     </p>
   </div>
-  
   <div class="footer">
    © 2025 SpotWorks Infrastructure | Site created by @assertive-vivo on GitHub
   </div>
@@ -351,7 +341,6 @@
       const originalBtn = document.getElementById('originalThemeBtn');
       const amoledBtn = document.getElementById('amoledThemeBtn');
       let activeButton = null;
-
       function resetButtons() {
         [originalBtn, amoledBtn].forEach(btn => {
           btn.style.transform = '';
@@ -369,6 +358,8 @@
         setTimeout(() => {
           resetButtons();
           activeButton = null;
+        }, 300);
+        setTimeout(() => {
           window.location.href = url;
         }, 1000);
       }
@@ -376,7 +367,6 @@
       originalBtn.addEventListener('click', function () {
         handleButtonClick(this, 'https://spsoftworks.netlify.app/org-download');
       });
-
       amoledBtn.addEventListener('click', function () {
         handleButtonClick(this, 'https://spsoftworks.netlify.app/aml-download');
       });
@@ -397,36 +387,29 @@
           'linear-gradient(135deg, #1db954, #14833B)',
           'linear-gradient(135deg, #1ed760, #0d5e29)'
         ];
-
         const total = 18;
-
         for (let i = 0; i < total; i++) {
           const element = document.createElement('div');
           element.classList.add('background-element');
           const type = types[Math.floor(Math.random() * types.length)];
           element.classList.add(type);
-
           const isMobile = window.innerWidth <= 768;
           const size = isMobile ? (40 + Math.random() * 80) : (60 + Math.random() * 140);
           element.style.width = `${size}px`;
           element.style.height = `${size}px`;
           element.style.left = `${Math.random() * 100}%`;
           element.style.top = `${100 + Math.random() * 30}%`;
-
           const color = colors[Math.floor(Math.random() * colors.length)];
           element.style.background = color;
 
           const duration = 5 + Math.random() * 3; 
           const delay = Math.random() * 1.5;
-
           element.style.animation = `float ${duration}s linear ${delay}s infinite`;
-
           body.appendChild(element);
         }
       }
       createBackgroundElements();
     });
-      
     window.addEventListener('load', function () {
       document.body.classList.remove('no-animate');
     });
