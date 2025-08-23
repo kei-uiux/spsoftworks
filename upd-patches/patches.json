@@ -3,6 +3,6 @@
   "force": true,
   "url": "https://spsoftworks.netlify.app",
   "header": "A new update is available!",
-  "version": "v1.5.2-beta.2 Changelogs:",
+  "version": "1.5.2-beta.2 Changelogs:",
   "changelogs": "READ FIRST:\n•  Make sure you're connected to Wi-Fi. If you're on mobile data and have no Wi-Fi, connect to the hotspot network.\n•  Make sure to set your connect device to \"Librespot Connect\" before playing a song.\nCHANGELOGS:\n•  upd: Update version name to include the current patch version\n•  feat: Spoof client - Bump Librespot to 1.6.6-SNAPSHOT\n•  feat: Force Local Playback - Forces playback to be local by using AudioAttributes instead of remote playback.\n•  upd: Remove Google login\n•  upd: Update how version comparing works for update checks\n•  fix: Librespot not connecting\n•  upd: Librespot renamed to \"Librespot Connect\"\n\nNOTE: This is a BETA VERSION and bug-free is NOT GUARANTEED! Make sure to clear cache first before installing the new version.\n\nLast Date Update: August 23, 2025"
 }
